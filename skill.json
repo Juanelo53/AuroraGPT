@@ -1,0 +1,97 @@
+{
+  "manifest": {
+    "apis": {
+      "custom": {
+        // Replace for you endpoints
+        "endpoint": {
+          "uri": ""
+        },
+        "interfaces": [],
+        "locales": {},
+        "regions": {
+          "EU": {
+            "endpoint": {
+              "uri": ""
+            }
+          },
+          "NA": {
+            "endpoint": {
+              "uri": ""
+            }
+          },
+          "FE": {
+            "endpoint": {
+              "uri": ""
+            }
+          }
+        }
+      }
+    },
+    "manifestVersion": "1.0",
+    "publishingInformation": {
+      "automaticClonedLocale": {
+        "locales": [
+          {
+            "source": "es-MX"
+          },
+          {
+            "source": "en-US"
+          }
+        ]
+      },
+      "distributionCountries": [],
+      "isAvailableWorldwide": true,
+      "locales": {
+        "en-US": {
+          "name": "MarinGPT"
+        },
+        "en-CA": {
+          "name": "MarinGPT"
+        },
+        "en-IN": {
+          "name": "MarinGPT"
+        },
+        "es-ES": {
+          "description": "Sample Full Description",
+          "examplePhrases": [
+            "Alexa abre hola mundo",
+            "hola",
+            "ayuda"
+          ],
+          "keywords": [],
+          "name": "MarinGPT",
+          "summary": "Sample Short Description"
+        },
+        "es-US": {
+          "description": "Sample Full Description",
+          "examplePhrases": [
+            "Alexa abre hola mundo",
+            "hola",
+            "ayuda"
+          ],
+          "keywords": [],
+          "name": "MarinGPT",
+          "summary": "Sample Short Description"
+        },
+        "en-AU": {
+          "name": "MarinGPT"
+        },
+        "es-MX": {
+          "description": "Sample Full Description",
+          "examplePhrases": [
+            "Alexa abre hola mundo",
+            "hola",
+            "ayuda"
+          ],
+          "keywords": [],
+          "name": "MarinGPT",
+          "summary": "Sample Short Description"
+        },
+        "en-GB": {
+          "name": "MarinGPT"
+        }
+      },
+      "testingInstructions": "Sample Testing Instructions."
+    }
+  }
+}

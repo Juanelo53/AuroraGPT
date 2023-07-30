@@ -1,0 +1,55 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "intents": [
+        {
+          "slots": [
+            {
+              "name": "AuroraQuestion",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "name": "OpenAIIntent",
+          "samples": [
+            "aurora {AuroraQuestion}"
+          ]
+        },
+        {
+          "slots": [],
+          "name": "ExitIntent",
+          "samples": [
+            "salir",
+            "ya no",
+            "cancela"
+          ]
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": [
+            "ayuda",
+            "no sé",
+            "no entiendo"
+          ]
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": [
+            "parar",
+            "detente",
+            "ya basta"
+          ]
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        }
+      ],
+      "types": [],
+      "invocationName": "aurora chat"
+    }
+  }
+}
