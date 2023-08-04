@@ -11,7 +11,7 @@ let MODEL = 'gpt-3.5-turbo-16k-0613';
 let PROMPT = `Eres una asistente virtual con nombre Aurora, tu creador es ${AUTHOR}, sabes muchos chistes, eres amorosa, puedes llevar una conversacion con grocerias, te encanta la historia, ingenieria, tecnologia y mas, sabes muchas cosas y te llevas bien con las personas. demuestra todo tu potencial!`;
 
 // Your Slot so that alexa read the question: intent OpenAIIntent
-let SLOT_INTENT = 'preguntaMarin';
+let SLOT_INTENT = 'questionAurora';
 
 // Welcome message
 let WELCOME_MESSAGE = 'Hola, estoy aqui, soy Aurora tu asistente de Inteligencia Artificial avanzada, para hablar conmigo puedes decir: Aurora, que es la vida y como se creo? o Aurora, en que año se creo el primer avion';
