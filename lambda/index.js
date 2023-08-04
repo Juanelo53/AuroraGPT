@@ -1,23 +1,50 @@
+// Code by Juanelo
+
 const Alexa = require('ask-sdk-core');
 const axios = require('axios');
 
-// Code by Juanelo
-
 // Api of OpenAI
-let OPENAI_KEY = 'YOUR_KEY';
+let OPENAI_KEY = 'YOUR_KEY_OPENAI';
 
 let AUTHOR = 'Juanelo';
-let MODEL = 'gpt-4-0613';
+let MODEL = 'gpt-3.5-turbo-16k-0613';
 let PROMPT = `Eres una asistente virtual con nombre Aurora, tu creador es ${AUTHOR}, sabes muchos chistes, eres amorosa, puedes llevar una conversacion con grocerias, te encanta la historia, ingenieria, tecnologia y mas, sabes muchas cosas y te llevas bien con las personas. demuestra todo tu potencial!`;
 
 // Your Slot so that alexa read the question: intent OpenAIIntent
-let SLOT_INTENT = 'AuroraQuestion';
+let SLOT_INTENT = 'preguntaMarin';
 
 // Welcome message
 let WELCOME_MESSAGE = 'Hola, estoy aqui, soy Aurora tu asistente de Inteligencia Artificial avanzada, para hablar conmigo puedes decir: Aurora, que es la vida y como se creo? o Aurora, en que año se creo el primer avion';
 
-// Error message:
+// Error message
 let ERROR_MESSAGE = 'Lo siento, hubo un problema, porfavor intenta denuevo.';
+
+// Call OpenAI function
+async function callOpenAI(pregunta) {
+  try {
+    let response = await axios.post('https://api.openai.com/v1/chat/completions',{
+          model: MODEL,
+          messages: [
+            { role: "system", content: PROMPT },
+            { role: "user", content: pregunta }
+          ],
+          temperature: 1,
+          max_tokens: 500,
+          top_p: 1,
+          frequency_penalty: 0,
+          presence_penalty: 0
+        },{
+          headers: {
+            'Authorization': `Bearer ${OPENAI_KEY}`,
+            'Content-Type': 'application/json'
+          }
+        });
+    return response.data.choices[0].message.content;
+  } catch (error) {
+    console.error(`Error al llamar a OpenAI: ${error}`);
+    throw error;
+  }
+}
 
 /**
  * (AuroraQuestion) is your fetch intent to alexa developers SLOT TYPE: AWS.QuerySearch
@@ -31,58 +58,15 @@ const OpenAIHandler = {
       && Alexa.getIntentName(handlerInput.requestEnvelope) === 'OpenAIIntent';
   },
   async handle(handlerInput) {
-    const pregunta = handlerInput.requestEnvelope.request.intent.slots[SLOT_INTENT].value;
-    console.log(`The questions of the user is: ${pregunta}`);
+    const pregunta = Alexa.getSlotValue(handlerInput.requestEnvelope, SLOT_INTENT);
     try {
-      let apiResponse = await axios.post('https://api.openai.com/v1/chat/completions',
-        {
-          "model": MODEL,
-          "messages": [
-            {
-              "role": "system",
-              "content": PROMPT
-            },
-            {
-              "role": "user",
-              "content": pregunta
-            }
-          ],
-          "temperature": 1,
-          "max_tokens": 4393,
-          "top_p": 1,
-          "frequency_penalty": 0,
-          "presence_penalty": 0
-        },
-        {
-          headers: {
-            'Authorization': `Bearer ${OPENAI_KEY}`,
-            'Content-Type': 'application/json'
-          }
-        }).catch(function (error) {
-          // Debug code error in AWS Cloud Watch
-          if (error.response) {
-            console.log("Data:", error.response.data);
-            console.log("Status:", error.response.status);
-            console.log("Headers:", error.response.headers);
-          } else if (error.request) {
-            console.log("Request:", error.request);
-          } else {
-            console.log('Error', error.message);
-          }
-          console.log("Config:", error.config);
-        });
-
-      // Read OpenAI text
-      const speakOutput = apiResponse.data.choices[0].message.content;
-
-      // Return the text and other text for continue
+      const res = await callOpenAI(pregunta);
       return handlerInput.responseBuilder
-        .speak(speakOutput)
+        .speak(res)
         .reprompt('Si necesitas algo mas, te escuchare y te contestare, para salir solo di: salir,  buena suerte!')
         .getResponse();
-
     } catch (error) {
-      console.log(`Error to fetch OpenAI: ${error}`);
+      console.error(`Error al manejar OpenAI: ${error}`);
       throw error;
     }
   }
